@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudioWave - Modern Studio Management Platform</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>StudioWave</h1>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#blogs">Hot Blogs</a></li>
+                <li><a href="#artists">Featured Artists</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="theme-toggle">
+                    <button id="theme-switch">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Music Production</h1>
+            <p>Streamline your studio operations, manage bookings, and connect with artists all in one place.</p>
+            <div class="cta-buttons">
+                <a href="#blogs" class="btn btn-primary">Get Started</a>
+                <a href="manager-dashboard.html" class="btn btn-secondary">Join as Manager</a>
+                <a href="artist-login.html" class="btn btn-tertiary">Join as Artist</a>
+                <a href="fan-page.html" class="btn btn-tertiary">Join as Fan</a>
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+    </section>
+
+    <!-- Hot Blogs Section -->
+    <section id="blogs" class="blogs">
+        <h2>Hot Blogs</h2>
+        <div class="blogs-grid">
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="assets/images/blog1.jpg" alt="Studio Tips">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-category">Production Tips</span>
+                    <h3>10 Essential Studio Setup Tips</h3>
+                    <p>Learn the fundamental steps to create the perfect recording environment for your music.</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-clock"></i> 5 min read</span>
+                        <span><i class="far fa-heart"></i> 234</span>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="assets/images/blog2.jpg" alt="Music Industry">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-category">Industry News</span>
+                    <h3>Music Industry Trends 2024</h3>
+                    <p>Stay ahead of the curve with the latest developments in the music industry.</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                        <span><i class="far fa-heart"></i> 156</span>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="assets/images/blog3.jpg" alt="Artist Spotlight">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-category">Artist Spotlight</span>
+                    <h3>Rising Stars: New Gen Artists</h3>
+                    <p>Discover the next generation of artists making waves in the industry.</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-clock"></i> 6 min read</span>
+                        <span><i class="far fa-heart"></i> 189</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Artists Section -->
+    <section id="artists" class="featured-artists">
+        <h2>Featured Artists</h2>
+        <div class="artists-grid">
+            <div class="artist-card">
+                <div class="artist-image">
+                    <img src="assets/images/artist1.jpg" alt="Sarah Johnson">
+                </div>
+                <div class="artist-info">
+                    <h3>Sarah Johnson</h3>
+                    <p class="artist-genre">Pop/R&B</p>
+                    <div class="artist-stats">
+                        <span><i class="fas fa-music"></i> 12 Tracks</span>
+                        <span><i class="fas fa-heart"></i> 45.2K</span>
+                    </div>
+                </div>
+            </div>
+            <div class="artist-card">
+                <div class="artist-image">
+                    <img src="assets/images/artist2.jpg" alt="Mike Chen">
+                </div>
+                <div class="artist-info">
+                    <h3>Mike Chen</h3>
+                    <p class="artist-genre">Hip Hop</p>
+                    <div class="artist-stats">
+                        <span><i class="fas fa-music"></i> 8 Tracks</span>
+                        <span><i class="fas fa-heart"></i> 32.8K</span>
+                    </div>
+                </div>
+            </div>
+            <div class="artist-card">
+                <div class="artist-image">
+                    <img src="assets/images/artist3.jpg" alt="Emma Davis">
+                </div>
+                <div class="artist-info">
+                    <h3>Emma Davis</h3>
+                    <p class="artist-genre">Electronic</p>
+                    <div class="artist-stats">
+                        <span><i class="fas fa-music"></i> 15 Tracks</span>
+                        <span><i class="fas fa-heart"></i> 28.5K</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>StudioWave</h3>
+                <p>Modern studio management platform for the digital age.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#blogs">Hot Blogs</a></li>
+                    <li><a href="#artists">Featured Artists</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 StudioWave. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html> 

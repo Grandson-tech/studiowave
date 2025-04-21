@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudioWave - Artist Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>StudioWave</h2>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="user-details">
+                    <h3>Loading...</h3>
+                    <p>Artist</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>My Bookings</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-clock"></i>
+                    <span>Studio Time</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-music"></i>
+                    <span>My Projects</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    <span>Collaborators</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search projects, sessions...">
+                </div>
+                
+                <div class="header-actions">
+                    <button class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </div>
+                    
+                    <div class="user-menu">
+                        <img src="assets/images/avatar-placeholder.png" alt="Artist Avatar" class="user-avatar-small">
+                    </div>
+                </div>
+            </header>
+            
+            <div class="dashboard-content">
+                <div class="dashboard-header">
+                    <h1>Artist Dashboard</h1>
+                    <div class="date-filter">
+                        <button class="active">Today</button>
+                        <button>Week</button>
+                        <button>Month</button>
+                        <button>Year</button>
+                    </div>
+                </div>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Studio Hours</h3>
+                            <p class="stat-value">48</p>
+                            <p class="stat-change positive">+8 this month</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Projects</h3>
+                            <p class="stat-value">6</p>
+                            <p class="stat-change positive">2 in progress</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Collaborations</h3>
+                            <p class="stat-value">12</p>
+                            <p class="stat-change positive">+3 new</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Upcoming Sessions</h3>
+                            <p class="stat-value">4</p>
+                            <p class="stat-change">Next: Tomorrow</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card upcoming-sessions">
+                        <div class="card-header">
+                            <h2>My Sessions</h2>
+                            <button class="btn btn-primary">Book New Session</button>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Studio</th>
+                                        <th>Producer</th>
+                                        <th>Project</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tomorrow, 10:00 AM</td>
+                                        <td>Studio A</td>
+                                        <td>Mike Johnson</td>
+                                        <td>New Album</td>
+                                        <td><span class="status-badge confirmed">Confirmed</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                                <button class="action-btn"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Friday, 2:00 PM</td>
+                                        <td>Studio B</td>
+                                        <td>David Wilson</td>
+                                        <td>Single Recording</td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                                <button class="action-btn"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card recent-activity">
+                        <div class="card-header">
+                            <h2>Recent Activity</h2>
+                            <button class="btn btn-secondary">View All</button>
+                        </div>
+                        <div class="activity-feed">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-save"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Project saved:</strong> "Summer Vibes" - Track 3</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-calendar-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Session booked</strong> with producer Mike Johnson</p>
+                                    <span class="activity-time">Yesterday</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-comment"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>New comment</strong> on your latest project</p>
+                                    <span class="activity-time">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="quick-action-buttons">
+                        <button class="quick-action-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            <span>Book Session</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <i class="fas fa-plus"></i>
+                            <span>New Project</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Add Collaborator</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <i class="fas fa-upload"></i>
+                            <span>Upload Track</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <i class="fas fa-comments"></i>
+                            <span>Message Producer</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/js/artist-dashboard.js"></script>
+</body>
+</html> 
