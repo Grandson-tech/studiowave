@@ -1,31 +1,32 @@
-# StudioWave - Modern Studio Management Platform
+# StudioWave
 
-StudioWave is a modern, responsive web application for managing music studios, connecting artists, and engaging with fans. The platform features a sleek UI with intuitive UX principles following modern design systems.
+A modern studio management platform with a sleek UI, responsive design, and comprehensive features for studio managers, artists, and fans.
 
 ## Features
 
-- 🎨 Modern, responsive design
-- 🌓 Dark/Light theme support
-- 📱 Mobile-first approach
-- ⚡ Smooth animations and transitions
-- 🎵 Music-inspired aesthetic
-- 🔒 Secure user authentication
-- 📊 Analytics dashboard
-- 📅 Smart scheduling system
+- 🎨 Modern, responsive design with dark/light theme support
+- 📱 Mobile-friendly interface
+- 🎵 Featured artists showcase
+- 📰 Hot blogs section with industry news and tips
+- 🔒 Secure authentication system
+- 👥 Role-based access control (Manager, Artist, Fan)
 
 ## Tech Stack
 
 - HTML5
 - CSS3 (with CSS Variables for theming)
-- Vanilla JavaScript
-- Font Awesome Icons
+- JavaScript (Vanilla)
+- Font Awesome for icons
 - Google Fonts (Poppins)
 
 ## Getting Started
 
-1. Clone the repository
-2. Open `index.html` in your browser
-3. No build process required - it's pure HTML, CSS, and JavaScript!
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Grandson-tech/studiowave.git
+   ```
+
+2. Open `index.html` in your browser to view the landing page.
 
 ## Project Structure
 
@@ -33,13 +34,17 @@ StudioWave is a modern, responsive web application for managing music studios, c
 studiowave/
 ├── assets/
 │   ├── css/
-│   │   └── style.css
+│   │   ├── style.css
+│   │   ├── login.css
+│   │   └── dashboard.css
 │   ├── js/
-│   │   └── main.js
+│   │   ├── main.js
+│   │   └── dashboard.js
 │   └── images/
-├── components/
 ├── index.html
-└── README.md
+├── manager-dashboard.html
+├── artist-login.html
+└── fan-login.html
 ```
 
 ## Features Implementation
@@ -90,6 +95,12 @@ studiowave/
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+Your Name - [@YourTwitter](https://twitter.com/YourTwitter)
+
+Project Link: [https://github.com/Grandson-tech/studiowave](https://github.com/Grandson-tech/studiowave)
 
 ## Acknowledgments
 
