@@ -2,101 +2,102 @@
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
-const togglePassword = document.querySelector('.toggle-password');
-const errorMessage = document.getElementById('loginError');
-const rememberMe = document.getElementById('remember');
+const togglePassword = document.getElementById('togglePassword');
+const rememberMe = document.getElementById('rememberMe');
+const errorMessage = document.getElementById('errorMessage');
 
-// Admin Manager Credentials (in a real application, this would be stored securely on the server)
-const adminManager = {
-    email: 'admin@studiowave.com',
-    password: 'admin123', // In a real application, this would be hashed
-    name: 'John Doe',
-    role: 'admin',
+// Default Manager Account
+const defaultManager = {
+    id: 1,
+    name: "Studio Manager",
+    email: "manager@studiowave.com",
+    password: "Manager123", // Simple password for testing
+    role: "manager",
     isAdmin: true
 };
 
-// Initialize manager data in localStorage if it doesn't exist
-if (!localStorage.getItem('managers')) {
-    localStorage.setItem('managers', JSON.stringify([adminManager]));
+// Initialize the manager account
+function initializeManager() {
+    // Clear any existing data first
+    localStorage.removeItem('managers');
+    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser');
+    
+    // Create fresh manager data
+    const managers = [defaultManager];
+    localStorage.setItem('managers', JSON.stringify(managers));
+    console.log('Manager account initialized:', defaultManager);
 }
 
-// Toggle Password Visibility
-togglePassword.addEventListener('click', () => {
-    const type = passwordInput.type === 'password' ? 'text' : 'password';
-    passwordInput.type = type;
-    togglePassword.innerHTML = type === 'password' ? 
-        '<i class="fas fa-eye"></i>' : 
-        '<i class="fas fa-eye-slash"></i>';
-});
-
-// Show Error Message
+// Show error message
 function showError(message) {
     errorMessage.textContent = message;
-    errorMessage.classList.add('visible');
+    errorMessage.style.display = 'block';
     setTimeout(() => {
-        errorMessage.classList.remove('visible');
-    }, 3000);
+        errorMessage.style.display = 'none';
+    }, 5000);
 }
 
-// Handle Login
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+// Toggle password visibility
+togglePassword.addEventListener('click', () => {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    togglePassword.querySelector('i').classList.toggle('fa-eye');
+    togglePassword.querySelector('i').classList.toggle('fa-eye-slash');
+});
 
+// Handle form submission
+loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
     const email = emailInput.value.trim();
     const password = passwordInput.value;
-
+    
     // Get managers from localStorage
     const managers = JSON.parse(localStorage.getItem('managers') || '[]');
+    console.log('Checking login for:', email);
     
-    // Find manager
+    // Find matching manager
     const manager = managers.find(m => m.email === email);
-
+    
     if (!manager) {
-        showError('Invalid email or password');
+        showError('No account found with this email');
         return;
     }
-
-    if (password !== manager.password) { // In a real app, use proper password hashing
-        showError('Invalid email or password');
+    
+    if (manager.password !== password) {
+        showError('Invalid password');
         return;
     }
-
-    // Store manager session
-    const session = {
+    
+    // Create session data
+    const sessionData = {
+        id: manager.id,
         name: manager.name,
         email: manager.email,
         role: manager.role,
-        isAdmin: manager.isAdmin,
-        isAuthenticated: true
+        isAdmin: manager.isAdmin
     };
-
+    
+    // Store session data
     if (rememberMe.checked) {
-        localStorage.setItem('managerSession', JSON.stringify(session));
+        localStorage.setItem('currentUser', JSON.stringify(sessionData));
     } else {
-        sessionStorage.setItem('managerSession', JSON.stringify(session));
+        sessionStorage.setItem('currentUser', JSON.stringify(sessionData));
     }
-
-    // Redirect to dashboard
+    
+    console.log('Login successful, redirecting to dashboard...');
     window.location.href = 'manager-dashboard.html';
 });
 
-// Check if user is already logged in
-function checkAuth() {
-    const session = JSON.parse(localStorage.getItem('managerSession') || sessionStorage.getItem('managerSession') || '{}');
-    
-    if (session.isAuthenticated) {
-        window.location.href = 'manager-dashboard.html';
-    }
-}
-
-// Initialize
+// Initialize when page loads
 document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();
+    // Initialize the manager account
+    initializeManager();
     
-    // Auto-fill email if remembered
-    const rememberedEmail = localStorage.getItem('rememberedEmail');
-    if (rememberedEmail) {
-        emailInput.value = rememberedEmail;
-        rememberMe.checked = true;
+    // Check if already logged in
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+    if (currentUser && currentUser.role === 'manager') {
+        window.location.href = 'manager-dashboard.html';
     }
 }); 
