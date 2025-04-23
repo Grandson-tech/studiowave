@@ -1,10 +1,11 @@
 // DOM Elements
 const sidebar = document.querySelector('.sidebar');
-const sidebarToggle = document.querySelector('.sidebar-toggle');
 const mainContent = document.querySelector('.main-content');
-const themeToggle = document.querySelector('.theme-toggle');
-const logoutBtn = document.querySelector('.logout-btn');
+const sidebarToggle = document.querySelector('.sidebar-toggle');
 const searchInput = document.querySelector('.search-bar input');
+const themeToggle = document.querySelector('.theme-toggle');
+const notifications = document.querySelector('.notifications');
+const logoutBtn = document.querySelector('.logout-btn');
 const sections = document.querySelectorAll('.dashboard-section');
 const navLinks = document.querySelectorAll('.sidebar-nav a');
 const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
@@ -72,32 +73,32 @@ const sampleBookings = [
 
 // Check Authentication
 function checkAuth() {
-    const currentManager = localStorage.getItem('currentManager');
-    if (!currentManager) {
-        window.location.href = 'manager-login.html';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || '{}');
+    if (!currentUser || currentUser.role !== 'manager') {
+        window.location.href = './manager-login.html';
     } else {
-        const manager = JSON.parse(currentManager);
-        document.getElementById('managerName').textContent = manager.name;
+        document.getElementById('managerName').textContent = currentUser.name;
     }
 }
 
 // Toggle Sidebar
 function toggleSidebar() {
-    sidebar.classList.toggle('active');
-    mainContent.classList.toggle('sidebar-active');
+    sidebar.classList.toggle('collapsed');
+    mainContent.classList.toggle('expanded');
 }
 
 // Toggle Theme
 function toggleTheme() {
-    const isDark = document.body.getAttribute('data-theme') === 'dark';
-    document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    const currentTheme = document.body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
 }
 
 // Handle Search
 function handleSearch() {
     const searchTerm = searchInput.value.toLowerCase();
-    const tableRows = document.querySelectorAll('tbody tr');
+    const tableRows = document.querySelectorAll('.bookings-list tr');
     
     tableRows.forEach(row => {
         const text = row.textContent.toLowerCase();
@@ -105,151 +106,166 @@ function handleSearch() {
     });
 }
 
-// Switch Section
-function switchSection(sectionId) {
-    sections.forEach(section => {
-        section.classList.remove('active');
-        if (section.id === sectionId) {
-            section.classList.add('active');
-        }
-    });
+// Handle Notifications
+function handleNotifications() {
+    // Placeholder for notification handling
+    console.log('Notifications clicked');
+}
 
-    navLinks.forEach(link => {
-        link.parentElement.classList.remove('active');
-        if (link.getAttribute('href') === `#${sectionId}`) {
-            link.parentElement.classList.add('active');
-        }
-    });
+// Handle Date Filter
+function handleDateFilter() {
+    // Placeholder for date filter handling
+    console.log('Date filter changed');
+}
 
-    mobileNavLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-        }
+// Add New Artist
+function addNewArtist() {
+    // Create modal for adding new artist
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h3>Add New Artist</h3>
+            <form id="newArtistForm">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Genre</label>
+                    <input type="text" required>
+                </div>
+                <button type="submit">Add Artist</button>
+            </form>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Handle form submission
+    const form = modal.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Save artist data
+        const artists = JSON.parse(localStorage.getItem('artists') || '[]');
+        artists.push({
+            id: Date.now(),
+            name: form.querySelector('input[type="text"]').value,
+            email: form.querySelector('input[type="email"]').value,
+            genre: form.querySelector('input[type="text"]').value
+        });
+        localStorage.setItem('artists', JSON.stringify(artists));
+        modal.remove();
+        loadArtists();
+    });
+}
+
+// Add New Booking
+function addNewBooking() {
+    // Create modal for adding new booking
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h3>Add New Booking</h3>
+            <form id="newBookingForm">
+                <div class="form-group">
+                    <label>Artist</label>
+                    <select required>
+                        <option value="">Select Artist</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="time" required>
+                </div>
+                <div class="form-group">
+                    <label>Duration (hours)</label>
+                    <input type="number" min="1" max="24" required>
+                </div>
+                <button type="submit">Add Booking</button>
+            </form>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Handle form submission
+    const form = modal.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Save booking data
+        const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        bookings.push({
+            id: Date.now(),
+            artist: form.querySelector('select').value,
+            date: form.querySelector('input[type="date"]').value,
+            time: form.querySelector('input[type="time"]').value,
+            duration: form.querySelector('input[type="number"]').value
+        });
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+        modal.remove();
+        loadBookings();
     });
 }
 
 // Load Artists
 function loadArtists() {
     const artistsList = document.querySelector('.artists-list');
-    artistsList.innerHTML = '';
-
-    sampleArtists.forEach(artist => {
-        const artistCard = document.createElement('div');
-        artistCard.className = 'artist-card';
-        artistCard.innerHTML = `
-            <div class="artist-info">
-                <h3>${artist.name}</h3>
-                <p>${artist.email}</p>
-                <p>Genre: ${artist.genre}</p>
-                <p>Status: <span class="status-badge ${artist.status.toLowerCase()}">${artist.status}</span></p>
+    const artists = JSON.parse(localStorage.getItem('artists') || '[]');
+    
+    artistsList.innerHTML = artists.map(artist => `
+        <div class="artist-card">
+            <h3>${artist.name}</h3>
+            <p>${artist.email}</p>
+            <p>${artist.genre}</p>
+            <div class="actions">
+                <button onclick="editArtist(${artist.id})">Edit</button>
+                <button onclick="deleteArtist(${artist.id})">Delete</button>
             </div>
-            <div class="artist-stats">
-                <div class="stat">
-                    <span>Bookings</span>
-                    <strong>${artist.bookings}</strong>
-                </div>
-                <div class="stat">
-                    <span>Revenue</span>
-                    <strong>$${artist.revenue}</strong>
-                </div>
-                <div class="stat">
-                    <span>Hours</span>
-                    <strong>${artist.hours}h</strong>
-                </div>
-            </div>
-            <div class="action-buttons">
-                <button class="action-btn edit" data-id="${artist.id}">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="action-btn delete" data-id="${artist.id}">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `;
-        artistsList.appendChild(artistCard);
-    });
+        </div>
+    `).join('');
 }
 
 // Load Bookings
 function loadBookings() {
-    const bookingsList = document.querySelectorAll('.bookings-list');
+    const bookingsList = document.querySelector('.bookings-list');
+    const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
     
-    bookingsList.forEach(list => {
-        list.innerHTML = '';
-        sampleBookings.forEach(booking => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${booking.date}</td>
-                <td>${booking.time}</td>
-                <td>${booking.artist}</td>
-                <td>${booking.duration}</td>
-                <td><span class="status-badge ${booking.status.toLowerCase()}">${booking.status}</span></td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="action-btn edit" data-id="${booking.id}">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete" data-id="${booking.id}">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            `;
-            list.appendChild(row);
-        });
-    });
+    bookingsList.innerHTML = bookings.map(booking => `
+        <tr>
+            <td>${booking.date}</td>
+            <td>${booking.time}</td>
+            <td>${booking.artist}</td>
+            <td>${booking.duration}h</td>
+            <td>Pending</td>
+            <td>
+                <button onclick="editBooking(${booking.id})">Edit</button>
+                <button onclick="deleteBooking(${booking.id})">Delete</button>
+            </td>
+        </tr>
+    `).join('');
 }
 
 // Initialize Charts
 function initCharts() {
-    // Revenue Chart
-    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-    new Chart(revenueCtx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Revenue',
-                data: [1200, 1900, 1500, 2000, 1800, 2400],
-                borderColor: '#4a90e2',
-                tension: 0.1
-            }]
-        }
-    });
-
-    // Utilization Chart
-    const utilizationCtx = document.getElementById('utilizationChart').getContext('2d');
-    new Chart(utilizationCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            datasets: [{
-                label: 'Hours',
-                data: [8, 6, 10, 8, 12, 4, 2],
-                backgroundColor: '#4a90e2'
-            }]
-        }
-    });
-
-    // Performance Chart
-    const performanceCtx = document.getElementById('performanceChart').getContext('2d');
-    new Chart(performanceCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['John Doe', 'Jane Smith', 'Mike Johnson'],
-            datasets: [{
-                data: [40, 30, 30],
-                backgroundColor: ['#4a90e2', '#2ecc71', '#e74c3c']
-            }]
-        }
-    });
+    // Placeholder for chart initialization
+    console.log('Initializing charts...');
 }
 
 // Handle Logout
 function handleLogout() {
-    localStorage.removeItem('currentManager');
-    window.location.href = 'manager-login.html';
+    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser');
+    window.location.href = './manager-login.html';
 }
 
 // Event Listeners

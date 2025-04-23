@@ -35,7 +35,7 @@ function showError(message) {
     errorMessage.style.display = 'block';
     setTimeout(() => {
         errorMessage.style.display = 'none';
-    }, 5000);
+    }, 3000);
 }
 
 // Toggle password visibility
@@ -87,7 +87,8 @@ loginForm.addEventListener('submit', function(e) {
     }
     
     console.log('Login successful, redirecting to dashboard...');
-    window.location.href = 'manager-dashboard.html';
+    // Use relative path for mobile compatibility
+    window.location.href = './manager-dashboard.html';
 });
 
 // Initialize when page loads
@@ -96,8 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeManager();
     
     // Check if already logged in
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || '{}');
     if (currentUser && currentUser.role === 'manager') {
-        window.location.href = 'manager-dashboard.html';
+        // Use relative path for mobile compatibility
+        window.location.href = './manager-dashboard.html';
     }
 }); 
