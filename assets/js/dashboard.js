@@ -268,6 +268,41 @@ function handleLogout() {
     window.location.href = './manager-login.html';
 }
 
+// Switch Section
+function switchSection(sectionId) {
+    // Hide all sections
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show selected section
+    const selectedSection = document.getElementById(sectionId);
+    if (selectedSection) {
+        selectedSection.classList.add('active');
+    }
+    
+    // Update navigation active states
+    navLinks.forEach(link => {
+        link.parentElement.classList.remove('active');
+        if (link.getAttribute('href') === `#${sectionId}`) {
+            link.parentElement.classList.add('active');
+        }
+    });
+    
+    mobileNavLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Close sidebar on mobile after section switch
+    if (window.innerWidth <= 768) {
+        sidebar.classList.remove('collapsed');
+        mainContent.classList.remove('expanded');
+    }
+}
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
